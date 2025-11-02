@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PD2 — Yatzy Game (Assignment 1) | Tong Zhou</title>
+
+    <!-- Reuse your main portfolio styles for consistent theme -->
+    <link rel="stylesheet" href="../styles.css" />
+
+    <style>
+        /* ========== PD2 Page Styles ========== */
+        body {
+            background: #f7f8fa;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            color: #1f2937;
+            padding: 32px;
+        }
+        .pd2-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.1);
+            padding: 32px;
+        }
+        h1, h2 { color: #0b1f3a; }
+        .subtitle { color: #6b7280; margin-bottom: 20px; }
+        .card {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            background: #fff;
+        }
+        .tag {
+            display: inline-block;
+            background: #e8f7ea;
+            color: #2e7d32;
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin: 4px 6px 0 0;
+            font-weight: 600;
+        }
+        img { max-width: 100%; border-radius: 10px; margin-top: 10px; }
+        a.btn {
+            display: inline-block;
+            background: #2e7d32;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 12px;
+        }
+        a.btn:hover { background: #256f2a; }
+    </style>
+</head>
+
+<body>
+<main class="pd2-container">
+    <a href="../index.html#portfolio" style="text-decoration:none;">← Back to Portfolio</a>
+
+    <h1>Project Deliverable #2 — Yatzy Game (Assignment 1)</h1>
+    <p class="subtitle">Author: Tong Zhou · Bachelor of Technology (Digital Health)</p>
+
+    <!-- ===================================================== -->
+    <!-- 1. Game Summary -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>1) Game Summary</h2>
+        <p>
+            This project implements a <strong>single-player Yatzy game</strong> entirely using
+            <strong>HTML, CSS, and modular JavaScript (ES6)</strong>. The player can roll
+            five dice, hold specific ones, and select scoring categories based on
+            classic Yatzy rules.
+        </p>
+        <p>
+            The project demonstrates my ability to build an interactive front-end application
+            from scratch, applying modular architecture, DOM manipulation, and client-side state
+            management.
+        </p>
+        <div>
+            <span class="tag">HTML5</span>
+            <span class="tag">CSS3</span>
+            <span class="tag">JavaScript ES6 Modules</span>
+            <span class="tag">Accessibility</span>
+            <span class="tag">LocalStorage</span>
+            <span class="tag">Responsive Design</span>
+        </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- 2. Key Features -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>2) Key Features</h2>
+        <ul>
+            <li>🎲 Roll five dice with hold/unhold toggle support.</li>
+            <li>🧮 Automatic subtotal, upper bonus (+35 when subtotal ≥63), and total score calculations.</li>
+            <li>💾 Persistent <code>High Score</code> using <code>localStorage</code>.</li>
+            <li>📱 Fully responsive layout with semantic HTML and ARIA labels.</li>
+            <li>🎨 Animated dice sprite background for realistic visual feedback.</li>
+        </ul>
+        <img src="./yatzy-ui.png" alt="Yatzy Game screenshot">
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- 3. Technical Structure -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>3) Technical Structure</h2>
+        <ul>
+            <li><strong>dice.js</strong> — Manages dice state, roll logic, and held flags.</li>
+            <li><strong>yatzyEngine.js</strong> — Implements all scoring categories and rules.</li>
+            <li><strong>yatzyGame.js</strong> — Coordinates turns, rolls, and score assignments.</li>
+            <li><strong>script.js</strong> — Handles DOM updates, button actions, and highlighting.</li>
+            <li><strong>styles.css</strong> — Defines layout, color palette, and accessible UI styles.</li>
+        </ul>
+        <p>
+            The game follows <strong>separation of concerns</strong>: logic modules and UI layers
+            are independent and reusable. Data flow is one-directional — game logic updates
+            the UI through rendering functions.
+        </p>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- 4. Key Learnings -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>4) Key Learnings</h2>
+        <ul>
+            <li>Improved modular programming skills using ES6 <code>import/export</code>.</li>
+            <li>Developed understanding of DOM-based state synchronization.</li>
+            <li>Applied accessibility best practices (ARIA, semantic HTML).</li>
+            <li>Used Git and GitHub for version control and iteration tracking.</li>
+            <li>Learned to debug and test browser-based JavaScript logic effectively.</li>
+        </ul>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- 5. Repository Link -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>5) Repository Link</h2>
+        <p>
+            <a class="btn" target="_blank" rel="noopener" href="<!-- put your Assignment 1 GitHub repo link here -->">
+                🔗 View Assignment 1 Code on GitHub
+            </a>
+        </p>
+    </section>
+
+    <p style="color:#6b7280;margin-top:20px;">© 2025 Tong Zhou</p>
+</main>
+</body>
+</html>

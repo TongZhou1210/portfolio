@@ -207,6 +207,110 @@
         </div>
     </div>
 </section>
+<!-- ===============================
+     OVERLAY: Portfolio
+     - Opens when the "Portfolio" link in the navigation bar is clicked
+     - Displays project cards linking to detailed overlays or documentation
+     =============================== -->
+<section id="portfolio" class="overlay-section" aria-labelledby="portfolio-title">
+    <div class="overlay-backdrop" aria-hidden="true"></div>
+
+    <div class="overlay-card">
+        <!-- Close button returns to home -->
+        <a class="overlay-close" href="#home" aria-label="Close overlay">✕</a>
+
+        <h2 id="portfolio-title" class="overlay-title">Portfolio</h2>
+        <p class="body-text" style="margin-top:2px;">
+            Selected coursework and personal projects. Click a project below to view more details or documentation.
+        </p>
+
+        <!-- Grid of project cards -->
+        <div class="portfolio-grid" role="list">
+
+            <!-- Assignment 1 Card -->
+            <article class="proj-card" role="listitem" data-tags="Web Coursework">
+                <header class="proj-head">
+                    <h3 class="proj-title">Yatzy – Assignment #1 (Front-end)</h3>
+                    <span class="proj-meta">HTML · CSS · ES Modules</span>
+                </header>
+                <p class="proj-desc">
+                    A single-player Yatzy game built using modular JavaScript.
+                    Focused on clean UI, accessibility, and basic game logic implementation.
+                </p>
+                <div class="proj-actions">
+                    <!-- Link to Assignment 1 overlay -->
+                    <a class="btn btn-small" href="#assignment1">View Details</a>
+                </div>
+            </article>
+
+            <!-- Assignment 2 Card (Future use) -->
+            <article class="proj-card" role="listitem" data-tags="Node.js Coursework">
+                <header class="proj-head">
+                    <h3 class="proj-title">Yatzy – Assignment #2 (Dice Server)</h3>
+                    <span class="proj-meta">Node.js · Express · JSON API</span>
+                </header>
+                <p class="proj-desc">
+                    A future project expanding the Yatzy game into a client–server model
+                    using Express.js and RESTful API design.
+                </p>
+                <div class="proj-actions">
+                    <a class="btn btn-small" href="#assignment2">View Details</a>
+                </div>
+            </article>
+
+            <!-- PD2 Documentation Page -->
+            <article class="proj-card" role="listitem" data-tags="Documentation">
+                <header class="proj-head">
+                    <h3 class="proj-title">Project Deliverable #2 – Yatzy Documentation</h3>
+                    <span class="proj-meta">Docs · Architecture · Best Practices</span>
+                </header>
+                <p class="proj-desc">
+                    A documentation page summarizing Assignment 1 and Assignment 2,
+                    including architecture, technical implementation, and key takeaways.
+                </p>
+                <div class="proj-actions">
+                    <a class="btn btn-small" href="PD2/index.html">Open PD2 Page</a>
+                </div>
+            </article>
+
+        </div>
+    </div>
+</section>
+<!-- ===============================
+     OVERLAY: Assignment 1 Details
+     - Opens when URL hash is #assignment1
+     =============================== -->
+<section id="assignment1" class="overlay-section" aria-labelledby="a1-title">
+    <div class="overlay-backdrop" aria-hidden="true"></div>
+    <div class="overlay-card">
+        <a class="overlay-close" href="#portfolio" aria-label="Close overlay">✕</a>
+
+        <h2 id="a1-title" class="overlay-title">Assignment #1 — Yatzy Game (Front-end)</h2>
+        <p class="body-text">
+            This single-player Yatzy game was developed using <strong>HTML, CSS, and JavaScript modules</strong>.
+            It demonstrates modular programming, clean UI design, and accessibility features.
+        </p>
+
+        <ul class="job-list">
+            <li><code>dice.js</code> — Dice state and rolling logic</li>
+            <li><code>yatzyEngine.js</code> — Score calculation and rules</li>
+            <li><code>yatzyGame.js</code> — Game flow controller</li>
+            <li><code>script.js</code> — DOM events and UI rendering</li>
+        </ul>
+
+        <p><strong>Key Features:</strong></p>
+        <ul class="job-list">
+            <li>Hold/re-roll dice, 13 scoring categories, upper bonus, and total score tracking</li>
+            <li>High score persistence using <code>localStorage</code></li>
+            <li>Accessible interface (ARIA labels and keyboard navigation)</li>
+            <li>Modular JavaScript architecture</li>
+        </ul>
+
+        <div class="proj-actions">
+            <a class="btn btn-small" target="_blank" href="<!-- put your Assignment1 GitHub link -->">View Code on GitHub</a>
+        </div>
+    </div>
+</section>
 
 <!-- Footer lives beneath the hero. Overlays sit above it. -->
 <footer class="site-footer">
