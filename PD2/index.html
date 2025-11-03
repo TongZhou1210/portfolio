@@ -5,80 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>PD2 — Yatzy Game (Assignment 1) | Tong Zhou</title>
 
-    <!-- Reuse your main portfolio styles for consistent theme -->
-    <link rel="stylesheet" href="../styles.css" />
-
-    <style>
-        /* ========== PD2 Page Styles ========== */
-        body {
-            background: #f7f8fa;
-            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-            color: #1f2937;
-            padding: 32px;
-        }
-        .pd2-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 1px 3px rgba(0,0,0,.1);
-            padding: 32px;
-        }
-        h1, h2 { color: #0b1f3a; }
-        .subtitle { color: #6b7280; margin-bottom: 20px; }
-        .card {
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 20px;
-            background: #fff;
-        }
-        .tag {
-            display: inline-block;
-            background: #e8f7ea;
-            color: #2e7d32;
-            padding: 4px 10px;
-            border-radius: 999px;
-            margin: 4px 6px 0 0;
-            font-weight: 600;
-        }
-        img { max-width: 100%; border-radius: 10px; margin-top: 10px; }
-        a.btn {
-            display: inline-block;
-            background: #2e7d32;
-            color: #fff;
-            padding: 10px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            margin-top: 12px;
-        }
-        a.btn:hover { background: #256f2a; }
-    </style>
+    <link rel="stylesheet" href="../mockups/styles.css" />
 </head>
 
-<body>
+<body class="pd2-body">
 <main class="pd2-container">
-    <a href="../index.html#portfolio" style="text-decoration:none;">← Back to Portfolio</a>
 
     <h1>Project Deliverable #2 — Yatzy Game (Assignment 1)</h1>
-    <p class="subtitle">Author: Tong Zhou · Bachelor of Technology (Digital Health)</p>
+    <p class="pd2-subtitle">Author: Tong Zhou · Bachelor of Technology (Digital Health)</p>
 
     <!-- ===================================================== -->
-    <!-- 1. Game Summary -->
+    <!-- 1) Game Summary -->
     <!-- ===================================================== -->
     <section class="card">
         <h2>1) Game Summary</h2>
         <p>
-            This project implements a <strong>single-player Yatzy game</strong> entirely using
-            <strong>HTML, CSS, and modular JavaScript (ES6)</strong>. The player can roll
-            five dice, hold specific ones, and select scoring categories based on
-            classic Yatzy rules.
+            This project implements a <strong>single-player Yatzy game</strong> built entirely with
+            <strong>HTML5, modern CSS, and modular JavaScript (ES6)</strong>. The player rolls five dice,
+            can toggle individual dice as “held”, and then assigns the result to one of thirteen
+            classic Yatzy scoring categories.
         </p>
         <p>
-            The project demonstrates my ability to build an interactive front-end application
-            from scratch, applying modular architecture, DOM manipulation, and client-side state
-            management.
+            From a technical perspective, the game shows my ability to design and build an interactive
+            <strong>front-end web application from scratch</strong>. I used semantic HTML, a responsive layout,
+            and the browser’s DOM API to keep the interface and the game state in sync. JavaScript ES6
+            modules organise the logic into small, reusable files, and <code>localStorage</code> is used
+            to remember the best score between sessions.
         </p>
+
+        <p><strong>Key technologies used in this project:</strong></p>
+        <ul>
+            <li><strong>HTML5 &amp; Semantic Structure</strong> – Accessible markup for the game board, scorecard, and controls.</li>
+            <li><strong>CSS3 (Flexbox, responsive layout)</strong> – Aligns dice, score table, and buttons across screen sizes.</li>
+            <li><strong>JavaScript (ES6 Modules)</strong> – Splits the logic into separate files using <code>import</code>/<code>export</code>.</li>
+            <li><strong>DOM API &amp; Events</strong> – Updates dice faces, scores, and handles button clicks.</li>
+            <li><strong><code>localStorage</code></strong> – Stores and retrieves the player’s high score on the client side.</li>
+            <li><strong>Git &amp; GitHub</strong> – Version control and project history management.</li>
+            <li><strong>VS Code + Browser DevTools</strong> – Main development environment for coding and debugging.</li>
+        </ul>
+
         <div>
             <span class="tag">HTML5</span>
             <span class="tag">CSS3</span>
@@ -90,60 +55,66 @@
     </section>
 
     <!-- ===================================================== -->
-    <!-- 2. Key Features -->
+    <!-- 2) Key Features -->
     <!-- ===================================================== -->
     <section class="card">
         <h2>2) Key Features</h2>
         <ul>
-            <li>🎲 Roll five dice with hold/unhold toggle support.</li>
-            <li>🧮 Automatic subtotal, upper bonus (+35 when subtotal ≥63), and total score calculations.</li>
-            <li>💾 Persistent <code>High Score</code> using <code>localStorage</code>.</li>
-            <li>📱 Fully responsive layout with semantic HTML and ARIA labels.</li>
-            <li>🎨 Animated dice sprite background for realistic visual feedback.</li>
+            <li>🎲 <strong>Interactive dice rolling</strong> – Roll five dice with a clear visual state for “held” and “not held”.</li>
+            <li>🧮 <strong>Full Yatzy scoring system</strong> – Thirteen categories, upper section subtotal, bonus (+35 when subtotal ≥ 63), and final total score.</li>
+            <li>💾 <strong>Persistent High Score</strong> – Uses <code>localStorage</code> so the best score is kept after closing and reopening the browser.</li>
+            <li>📱 <strong>Responsive interface</strong> – Layout built with CSS Flexbox so the game is usable on laptops and smaller screens.</li>
+            <li>♿ <strong>Accessibility-aware UI</strong> – Semantic HTML and descriptive labels to make the interface more understandable for assistive technologies.</li>
+            <li>🎨 <strong>Visual feedback</strong> – CSS styling and simple animations provide clear feedback when dice are rolled or a category is selected.</li>
         </ul>
         <img src="./yatzy-ui.png" alt="Yatzy Game screenshot">
     </section>
 
     <!-- ===================================================== -->
-    <!-- 3. Technical Structure -->
+    <!-- 3) Technical Structure -->
     <!-- ===================================================== -->
     <section class="card">
         <h2>3) Technical Structure</h2>
+        <p>
+            The codebase follows a <strong>modular, separation-of-concerns</strong> approach:
+            each file has a focused responsibility, and UI code is kept separate from pure game logic.
+        </p>
         <ul>
-            <li><strong>dice.js</strong> — Manages dice state, roll logic, and held flags.</li>
-            <li><strong>yatzyEngine.js</strong> — Implements all scoring categories and rules.</li>
-            <li><strong>yatzyGame.js</strong> — Coordinates turns, rolls, and score assignments.</li>
-            <li><strong>script.js</strong> — Handles DOM updates, button actions, and highlighting.</li>
-            <li><strong>styles.css</strong> — Defines layout, color palette, and accessible UI styles.</li>
+            <li><strong>dice.js</strong> — Represents the set of dice, including current values, “held” flags, and random roll logic.</li>
+            <li><strong>yatzyEngine.js</strong> — Contains all Yatzy scoring rules and helper functions for calculating category scores and totals.</li>
+            <li><strong>yatzyGame.js</strong> — Coordinates the turn flow (rolls left, which categories are available) and communicates with the engine to update the score.</li>
+            <li><strong>script.js</strong> — Connects the HTML page to the game logic: attaches event listeners, updates the DOM, and renders the current state.</li>
+            <li><strong>styles.css</strong> — Defines the visual design: colour palette, typography, layout, and responsive behaviour.</li>
         </ul>
         <p>
-            The game follows <strong>separation of concerns</strong>: logic modules and UI layers
-            are independent and reusable. Data flow is one-directional — game logic updates
-            the UI through rendering functions.
+            The game uses a <strong>one-way data flow</strong>: user actions trigger game-logic functions,
+            the game state is updated, and then a render function refreshes the DOM based on that state.
+            This makes the behaviour easier to reason about, extend, and test.
         </p>
     </section>
 
     <!-- ===================================================== -->
-    <!-- 4. Key Learnings -->
+    <!-- 4) Key Learnings -->
     <!-- ===================================================== -->
     <section class="card">
         <h2>4) Key Learnings</h2>
         <ul>
-            <li>Improved modular programming skills using ES6 <code>import/export</code>.</li>
-            <li>Developed understanding of DOM-based state synchronization.</li>
-            <li>Applied accessibility best practices (ARIA, semantic HTML).</li>
-            <li>Used Git and GitHub for version control and iteration tracking.</li>
-            <li>Learned to debug and test browser-based JavaScript logic effectively.</li>
+            <li>Strengthened my skills with <strong>ES6 modules</strong>, organising JavaScript into small, reusable files.</li>
+            <li>Gained a deeper understanding of <strong>DOM-based state synchronisation</strong> and how to keep the UI in sync with game data.</li>
+            <li>Practised <strong>accessibility and semantic HTML</strong>, including meaningful structure and clear labelling of interactive elements.</li>
+            <li>Improved my use of <strong>CSS Flexbox and responsive design</strong> to support different screen sizes.</li>
+            <li>Used <strong>Git and GitHub</strong> throughout the project to manage versions and document my progress.</li>
+            <li>Built confidence in <strong>debugging and testing</strong> browser-based JavaScript using console logging and browser DevTools.</li>
         </ul>
     </section>
 
     <!-- ===================================================== -->
-    <!-- 5. Repository Link -->
+    <!-- 5) Repository Link -->
     <!-- ===================================================== -->
     <section class="card">
         <h2>5) Repository Link</h2>
         <p>
-            <a class="btn" target="_blank" rel="noopener" href="<!-- put your Assignment 1 GitHub repo link here -->">
+            <a class="btn" target="_blank" rel="noopener" href="https://github.com/TongZhou1210/yatzy.git">
                 🔗 View Assignment 1 Code on GitHub
             </a>
         </p>

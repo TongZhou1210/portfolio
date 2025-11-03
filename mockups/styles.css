@@ -305,3 +305,74 @@ body{
     .portfolio-grid{ grid-template-columns: 1fr; } /* 1 column mobile */
 }
 
+/* =========================================================
+   PD2 standalone documentation page
+   (used by /PD2/index.html and also inside iframe overlay)
+   ========================================================= */
+
+/* Body style ONLY for the PD2 page.
+   We use a class instead of `body {}` so it does NOT affect the main portfolio. */
+.pd2-body {
+    background: #f7f8fa;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: #1f2937;
+    padding: 32px;
+}
+
+/* Main container that centers the PD2 content and gives it a card look */
+.pd2-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    padding: 32px;
+}
+
+/* Headings inside PD2 use the same dark navy as the portfolio theme */
+.pd2-container h1,
+.pd2-container h2 {
+    color: #0b1f3a;
+}
+
+/* Subtitle line under the main title on PD2 */
+.pd2-subtitle {
+    color: #6b7280;
+    margin-bottom: 20px;
+}
+
+/* Generic “card” block inside PD2.
+   Scoped so it only applies to cards inside the PD2 container
+   (won't change your .grid-2 .card styles). */
+.pd2-container .card {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    background: #fff;
+}
+
+/* Pill-shaped tags listing technologies */
+.tag {
+    display: inline-block;
+    background: #e8f7ea;
+    color: #2e7d32;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin: 4px 6px 0 0;
+    font-weight: 600;
+}
+
+/* Main call-to-action button on PD2 (GitHub link) */
+a.btn {
+    display: inline-block;
+    background: #2e7d32;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-top: 12px;
+}
+a.btn:hover {
+    background: #256f2a;
+}
