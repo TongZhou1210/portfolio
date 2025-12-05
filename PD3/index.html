@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PD3 — Emergency Waitlist – Hospital Triage Web App | Tong Zhou</title>
+    <!-- Adjust the path if needed depending on where PD3 lives in your portfolio repo -->
+    <link rel="stylesheet" href="../mockups/styles.css" />
+</head>
+
+<body class="pd2-body">
+<main class="pd2-container">
+
+    <h1>Project Deliverable #3 — Emergency Waitlist (Hospital Triage Web App)</h1>
+    <p class="pd2-subtitle">
+        Author: Tong Zhou · Bachelor of Technology (Digital Health) · CST3106 Web Development
+    </p>
+
+    <!-- ===================================================== -->
+    <!-- 1) Project Summary -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <!-- Project Screenshot -->
+        <div style="text-align:center; margin: 20px 0;">
+            <img src="hospital_triage.png"
+                 alt="Emergency Waitlist App Screenshot"
+                 style="max-width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+        </div>
+
+        <h2>1) Project Summary</h2>
+        <p>
+            This project is a full-stack <strong>Hospital Triage Web App</strong> that allows patients to
+            <strong>self-register for emergency triage</strong>, see their <strong>estimated wait time</strong>,
+            and lets <strong>admins view and reprioritize</strong> the live queue.
+        </p>
+        <p>
+            The system is built with <strong>Node.js + Express</strong> on the backend and
+            <strong>PostgreSQL</strong> as the database, with a lightweight front-end using
+            <strong>HTML5, CSS, and vanilla JavaScript</strong>. Patients interact through a simple mobile-friendly
+            interface, while admins use a separate view to manage the queue, update triage levels, and mark visits
+            as completed.
+        </p>
+        <p>
+            From a learning perspective, this project extends my previous front-end work into a complete
+            <strong>client–server web application</strong>. It demonstrates my ability to design REST APIs, model
+            relational data, and connect a real database to a usable user interface.
+        </p>
+
+        <div>
+            <span class="tag">Node.js</span>
+            <span class="tag">Express</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">REST API</span>
+            <span class="tag">HTML5</span>
+            <span class="tag">CSS3</span>
+            <span class="tag">JavaScript</span>
+        </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- 2) Project Structure -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>2) Project Structure</h2>
+        <p>The application is organized into a small, clear folder structure:</p>
+
+        <pre><code>emergency-waitlist-1/
+├─ server.js                      # Express server + REST API
+├─ db.js                          # PostgreSQL connection (pg Pool)
+├─ package.json
+├─ public/                        # Front-end pages & styles
+│  ├─ styles.css
+│  ├─ images/
+│  │   ├─ triage.png
+│  │   ├─ button_style.png
+│  │   └─ color_palette.png
+│  ├─ patient_home.html
+│  ├─ patient_register.html
+│  ├─ patient_status.html
+│  ├─ patient_info.html
+│  ├─ admin_home.html
+│  ├─ admin_update_priority.html
+│  └─ admin_patient_info.html
+└─ node_modules/</code></pre>
+
+        <ul>
+            <li><strong>server.js</strong> – Main Express server and REST API routes.</li>
+            <li><strong>db.js</strong> – PostgreSQL connection using <code>pg.Pool</code>.</li>
+            <li><strong>public/</strong> – All front-end HTML, CSS, images, and client-side JS.</li>
+            <li><strong>patient_*.html</strong> – Views for patient self-service.</li>
+            <li><strong>admin_*.html</strong> – Views for admin queue management.</li>
+        </ul>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- 3) Technology Stack -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>3) Technology Stack</h2>
+        <ul>
+            <li><strong>Backend:</strong> Node.js, Express, <code>pg</code> (PostgreSQL driver)</li>
+            <li><strong>Database:</strong> PostgreSQL</li>
+            <li><strong>Frontend:</strong> HTML5, CSS, vanilla JavaScript</li>
+            <li><strong>Tools:</strong> pgAdmin for DB management, Git &amp; GitHub for version control</li>
+        </ul>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- 4) Database Design -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>4) Database Design (PostgreSQL)</h2>
+        <p>
+            The database is intentionally simple. It focuses on two core tables:
+            <strong>levels</strong> (triage levels) and <strong>patients</strong> (live queue).
+        </p>
+
+        <h3>4.1 SQL Setup</h3>
+        <p><strong>Create database:</strong></p>
+        <pre><code class="language-sql">CREATE DATABASE emergency_waitlist;</code></pre>
+
+        <p><strong>Create tables:</strong></p>
+        <pre><code class="language-sql">CREATE TABLE levels (
+  triage_level_code SMALLINT PRIMARY KEY,
+  label             TEXT NOT NULL
+);
+
+INSERT INTO levels (triage_level_code, label) VALUES
+  (1, 'Level 1'),
+  (2, 'Level 2'),
+  (3, 'Level 3');
+
+CREATE TABLE patients (
+  id                SERIAL PRIMARY KEY,
+  name              TEXT NOT NULL,
+  age               INTEGER CHECK (age >= 0),
+  symptoms          TEXT,
+  pain_level        INTEGER CHECK (pain_level BETWEEN 1 AND 10),
+  notes             TEXT,
+  triage_level_code SMALLINT NOT NULL REFERENCES levels (triage_level_code),
+  status            TEXT NOT NULL DEFAULT 'waiting',
+  created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);</code></pre>
+
+        <h3>4.2 Table: <code>patients</code></h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Constraints</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>id</code></td>
+                <td>SERIAL</td>
+                <td>PRIMARY KEY</td>
+                <td>Unique identifier for each patient.</td>
+            </tr>
+            <tr>
+                <td><code>name</code></td>
+                <td>TEXT</td>
+                <td>NOT NULL</td>
+                <td>Patient full name.</td>
+            </tr>
+            <tr>
+                <td><code>age</code></td>
+                <td>INTEGER</td>
+                <td>CHECK (age &gt;= 0)</td>
+                <td>Patient age in years (can be NULL if unknown).</td>
+            </tr>
+            <tr>
+                <td><code>symptoms</code></td>
+                <td>TEXT</td>
+                <td>NULL</td>
+                <td>Description of main symptoms.</td>
+            </tr>
+            <tr>
+                <td><code>pain_level</code></td>
+                <td>INTEGER</td>
+                <td>CHECK (pain_level BETWEEN 1 AND 10)</td>
+                <td>Pain score from 1–10.</td>
+            </tr>
+            <tr>
+                <td><code>notes</code></td>
+                <td>TEXT</td>
+                <td>NULL</td>
+                <td>Allergies, medications, or other notes.</td>
+            </tr>
+            <tr>
+                <td><code>triage_level_code</code></td>
+                <td>SMALLINT</td>
+                <td>NOT NULL, FK → <code>levels.triage_level_code</code></td>
+                <td>Current triage level for this patient.</td>
+            </tr>
+            <tr>
+                <td><code>status</code></td>
+                <td>TEXT</td>
+                <td>NOT NULL, DEFAULT <code>'waiting'</code></td>
+                <td>Patient status (e.g., <code>waiting</code>, <code>completed</code>).</td>
+            </tr>
+            <tr>
+                <td><code>created_at</code></td>
+                <td>TIMESTAMPTZ</td>
+                <td>NOT NULL, DEFAULT <code>NOW()</code></td>
+                <td>Time when the record was created.</td>
+            </tr>
+            <tr>
+                <td><code>updated_at</code></td>
+                <td>TIMESTAMPTZ</td>
+                <td>NOT NULL, DEFAULT <code>NOW()</code></td>
+                <td>Time when the record was last updated.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3>4.3 Table: <code>levels</code></h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Field</th>
+                <th>Type</th>
+                <th>Constraints</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>triage_level_code</code></td>
+                <td>SMALLINT</td>
+                <td>PRIMARY KEY</td>
+                <td>Numeric triage code (1 = most urgent, 3 = least urgent).</td>
+            </tr>
+            <tr>
+                <td><code>label</code></td>
+                <td>TEXT</td>
+                <td>NOT NULL</td>
+                <td>Display label such as <code>'Level 1'</code>, <code>'Level 2'</code>, etc.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p>
+            Relationship: <strong>levels (1) → (M) patients</strong>. One level can be assigned to many patients,
+            which matches how emergency departments use triage categories.
+        </p>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- 5) Configure DB Connection -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>5) Configure Database Connection</h2>
+        <p>
+            The backend uses a shared <code>Pool</code> from the <code>pg</code> library.
+            The connection settings are stored in <strong>db.js</strong>:
+        </p>
+
+        <pre><code class="language-js">const { Pool } = require("pg");
+
+const pool = new Pool({
+  host: "127.0.0.1",
+  port: 5432,
+  user: "postgres",
+  password: "YOUR_PASSWORD",   // replace with your own password
+  database: "emergency_waitlist",
+});
+
+module.exports = pool;</code></pre>
+
+        <p>
+            For security and good practice, the actual password should be stored in environment variables
+            (e.g., using <code>.env</code>) rather than hard-coded. For this assignment project, the config is kept simple.
+        </p>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- 6) User Flows (Patient & Admin) -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>6) User Flows</h2>
+
+        <h3>6.1 Patient Flow</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Page</th>
+                <th>Function</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>patient_home.html</code></td>
+                <td>Shows the current estimated wait time for a new patient.</td>
+            </tr>
+            <tr>
+                <td><code>patient_register.html</code></td>
+                <td>Lets a patient submit their details and receive a patient ID.</td>
+            </tr>
+            <tr>
+                <td><code>patient_status.html</code></td>
+                <td>Allows a patient to check their position and estimated wait time using their ID.</td>
+            </tr>
+            <tr>
+                <td><code>patient_info.html</code></td>
+                <td>Shows basic info (name, age, symptoms, pain level, notes) for the current patient.</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h3>6.2 Admin Flow</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Page</th>
+                <th>Function</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>admin_home.html</code></td>
+                <td>Displays the current waiting queue with triage levels and estimated wait times.</td>
+            </tr>
+            <tr>
+                <td><code>admin_patient_info.html</code></td>
+                <td>Shows a detailed view for a single patient.</td>
+            </tr>
+            <tr>
+                <td><code>admin_update_priority.html</code></td>
+                <td>Allows admins to change a patient’s triage level or mark them as completed.</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- 7) Backend API (Express) -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>7) Backend API (Express)</h2>
+        <p>The server exposes a small REST API that the front-end pages use via <code>fetch()</code>:</p>
+
+        <ul>
+            <li><strong>Register Patient</strong> – <code>POST /api/patients</code></li>
+            <li><strong>Queue List (Admin)</strong> – <code>GET /api/patients</code></li>
+            <li><strong>Patient Details</strong> – <code>GET /api/patients/:id</code></li>
+            <li><strong>Patient Status</strong> – <code>GET /api/patients/:id/status</code></li>
+            <li><strong>Update Priority / Status</strong> – <code>PATCH /api/patients/:id</code></li>
+        </ul>
+
+        <p>
+            This structure keeps the API small but expressive: it supports both the patient-facing and admin-facing
+            screens with clear, RESTful endpoints.
+        </p>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- 8) Triage & Wait Time Logic -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>8) Triage &amp; Wait Time Logic</h2>
+
+        <h3>8.1 Triage Level Based on Pain Score</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>Pain Level</th>
+                <th>Triage Level</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><strong>8–10</strong></td>
+                <td>Level 1 (highest priority)</td>
+            </tr>
+            <tr>
+                <td><strong>5–7</strong></td>
+                <td>Level 2</td>
+            </tr>
+            <tr>
+                <td><strong>1–4</strong></td>
+                <td>Level 3</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p>
+            The server calculates estimated wait time based on the patient’s position in the triage-sorted queue and a fixed
+            average service time per patient. This value is returned to both patient and admin views.
+        </p>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- 9) How to Run the App -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>9) How to Install &amp; Run</h2>
+        <ol>
+            <li>Ensure PostgreSQL is installed and running.</li>
+            <li>Create the database and tables using the SQL in section 4.</li>
+            <li>Update <code>db.js</code> with your local PostgreSQL username and password.</li>
+            <li>From the project folder, run:
+                <pre><code>npm install
+node server.js</code></pre>
+            </li>
+            <li>Open the following URLs in your browser:
+                <ul>
+                    <li>Patient home → <code>http://localhost:3000/patient_home.html</code></li>
+                    <li>Admin home → <code>http://localhost:3000/admin_home.html</code></li>
+                </ul>
+            </li>
+        </ol>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- 10) Key Learnings -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>10) Key Learnings</h2>
+        <ul>
+            <li>Designed and implemented a <strong>full-stack web app</strong> from database to UI.</li>
+            <li>Gained practical experience with <strong>Express routing</strong> and <strong>REST API design</strong>.</li>
+            <li>Learned how to <strong>model a relational schema</strong> in PostgreSQL and map it to real UI screens.</li>
+            <li>Used <strong>fetch()</strong> to connect front-end pages with backend JSON responses.</li>
+            <li>Practised debugging both server-side (Node.js) and client-side (browser DevTools).</li>
+            <li>Improved my ability to write technical documentation for databases and APIs.</li>
+        </ul>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- 11) Repository Link -->
+    <!-- ===================================================== -->
+    <section class="card">
+        <h2>11) Repository Link</h2>
+        <p>
+            <a class="btn"
+               target="_blank"
+               rel="noopener"
+               href="https://github.com/TongZhou1210/emergency-waitlist">
+                🔗 View Emergency Waitlist Code on GitHub
+            </a>
+        </p>
+    </section>
+
+    <p style="color:#6b7280;margin-top:20px;">© 2025 Tong Zhou</p>
+</main>
+</body>
+</html>
